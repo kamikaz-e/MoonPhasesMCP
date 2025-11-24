@@ -1,8 +1,10 @@
 package dev.kamikaze.moonphases.mcp.plugins
 
 import dev.kamikaze.moonphases.mcp.models.HealthResponse
+import dev.kamikaze.moonphases.mcp.routes.chatRoute
 import dev.kamikaze.moonphases.mcp.routes.moonPhaseRoute
 import dev.kamikaze.moonphases.mcp.routes.toolsRoute
+import dev.kamikaze.moonphases.mcp.services.MoonChatProcessor
 import dev.kamikaze.moonphases.mcp.services.MoonPhasesService
 import io.ktor.server.application.*
 import io.ktor.server.response.*
@@ -10,7 +12,7 @@ import io.ktor.server.routing.*
 
 fun Application.configureRouting() {
     val moonPhasesService = MoonPhasesService()
-
+    val moonChatProcessor = MoonChatProcessor(moonPhasesService)
     routing {
         get("/") {
             call.respondText("Moon Phases MCP Server is running! 🌙")
@@ -25,6 +27,7 @@ fun Application.configureRouting() {
         }
 
         toolsRoute()
+        chatRoute(moonChatProcessor)
         moonPhaseRoute(moonPhasesService)
     }
 }

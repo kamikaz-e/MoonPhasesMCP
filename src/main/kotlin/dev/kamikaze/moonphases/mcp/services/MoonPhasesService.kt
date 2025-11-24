@@ -9,7 +9,6 @@ import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
 import io.ktor.client.request.*
-import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 import org.slf4j.LoggerFactory
@@ -51,7 +50,7 @@ class MoonPhasesService {
      * Получить фазу луны для указанной даты
      * @param date дата в формате MM-DD-YYYY
      */
-    suspend fun getMoonPhase(date: String): Result<MoonPhaseResponse> {
+    suspend fun getMoonPhaseByDate(date: String): Result<MoonPhaseResponse> {
         return try {
             logger.info("Fetching moon phase for date: $date")
             
@@ -95,7 +94,7 @@ class MoonPhasesService {
         val formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy")
         val dateString = today.format(formatter)
         
-        return getMoonPhase(dateString)
+        return getMoonPhaseByDate(dateString)
     }
     
     /**

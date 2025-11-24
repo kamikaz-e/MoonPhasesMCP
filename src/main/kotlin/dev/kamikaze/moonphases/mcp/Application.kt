@@ -8,7 +8,7 @@ import io.ktor.server.netty.*
 fun main() {
     embeddedServer(
         factory = Netty,
-        port = System.getenv("PORT")?.toIntOrNull() ?: 8081,
+        port = 8081,
         host = "127.0.0.1",
         module = Application::module
     ).start(wait = true)

@@ -15,7 +15,7 @@ fun Route.moonPhaseRoute(moonPhasesService: MoonPhasesService) {
     post("/moonphase") {
         val request = call.receive<MoonPhaseRequest>()
         
-        moonPhasesService.getMoonPhase(request.date)
+        moonPhasesService.getMoonPhaseByDate(request.date)
             .onSuccess { response ->
                 call.respond(response)
             }
@@ -53,7 +53,7 @@ fun Route.moonPhaseRoute(moonPhasesService: MoonPhasesService) {
             return@get
         }
         
-        moonPhasesService.getMoonPhase(date)
+        moonPhasesService.getMoonPhaseByDate(date)
             .onSuccess { response ->
                 call.respond(response)
             }
